@@ -11,7 +11,12 @@ function App() {
   const [todoValue, setTodoValue] = useState("");
 
   const persistData = (newList) => {
-    localStorage.setItem("todos", JSON.stringify({ todos: newList }));
+    localStorage.setItem(
+      "todos",
+      JSON.stringify({
+        todos: newList,
+      })
+    );
   };
 
   const handleAddTodo = (newTodo) => {
@@ -42,9 +47,22 @@ function App() {
       return;
     }
 
-    console.log(localTodos);
+    console.log("local Todos" + localTodos);
     localTodos = JSON.parse(localTodos);
-    setTodos(localTodos);
+    if (Array.isArray(localTodos.todos)) {
+      setTodos(localTodos.todos);
+    } else {
+      setTodos([]);
+    }
+    // this works as well
+    /*
+    if (localTodos.todos === undefined) {
+      return;
+    } else {
+      localTodos = localTodos.todos;
+    }
+     setTodos(localTodos);
+    */
   }, []);
 
   return (
